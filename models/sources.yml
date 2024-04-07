@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: DB_SMS
+    database: SMS_DB
+    schema: L1_SOURCE_SCHEMA
+    tables:
+      - name: TBL_USER
+        description: Users Record.
+      - name: TBL_SKILLS
+        description: All Skills.
+      - name: TBL_CERTIFICATES
+        description: All Certificates.
+      - name: TBL_APPROVER_USER
+        description: Records of User_Approver Allocation.
+      - name: TBL_USER_CERTIFICATE
+        description: Records of USER_CERTIFICATE.
+      - name: TBL_USER_PROJECT
+        description: Records of USER_PROJECT.
+      - name: TBL_USER_SKILL
+        description: Records of USER_SKILL.

@@ -1,0 +1,161 @@
+version: 2
+
+models:
+  - name: stg_user
+    columns:
+      - name: USER_ID
+        description: "Unique identifier for each user."
+        tests:
+          - unique
+          - not_null
+      - name: FULL_NAME
+        description: "Full name of the user."
+        tests:
+          - not_null
+      - name: EMAIL
+        description: "Email address of the user."
+        tests:
+          - unique
+          - not_null
+      - name: PASSWORD
+        description: "Password associated with the user account."
+        tests:
+          - not_null
+      - name: PHONE_NUMBER
+        description: "Phone number of the user."
+        tests:
+          - not_null
+      - name: ROLE
+        description: "Role or position of the user."
+        tests:
+          - not_null
+      - name: CHANGE_PASSWORD
+        description: "Indicates whether the user is required to change their password."
+        tests:
+          - not_null
+
+  - name: stg_approverUser
+    columns:
+      - name: USER_ID
+        description: "Unique identifier for each user."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_user')
+              field: USER_ID
+      - name: APPROVER_ID
+        description: "User ID of the approver."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_user')
+              field: USER_ID 
+  - name: stg_skills
+    columns:
+      - name: SKILL_ID
+        description: "Unique identifier for each skill."
+        tests:
+          - unique
+          - not_null
+      - name: SKILL_NAME
+        description: "Name of the skill."
+        tests:
+          - not_null
+  - name: stg_certificates
+    columns:
+      - name: CERTIFICATE_ID
+        description: "Unique identifier for each certificate."
+        tests:
+          - unique
+          - not_null
+      - name: CERTIFICATE_NAME
+        description: "Name of the certificate."
+        tests:
+          - not_null
+  - name: stg_userCertificate
+    columns:
+      - name: ID
+        description: "Unique identifier for each user certificate entry."
+        tests:
+          - unique
+          - not_null
+      - name: CERTIFICATE_ID
+        description: "ID of the certificate associated with the user."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_certificates')
+              field: CERTIFICATE_ID
+      - name: USER_ID
+        description: "ID of the user associated with the certificate."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_user')
+              field: USER_ID
+      - name: VALID_FROM
+        description: "Date when the certificate becomes valid."
+        tests:
+          - not_null
+      - name: VALID_TILL
+        description: "Date when the certificate expires."
+        tests:
+          - not_null
+      - name: STATUS
+        description: "Status of the certificate (e.g., Pending, Approved, Rejected)."
+        tests:
+          - not_null
+      - name: CREDENTIAL_ID
+        description: "ID of the credential associated with the certificate."
+        tests:
+          - not_null
+
+  - name: stg_userProject
+    columns:
+      - name: ID
+        description: "Unique identifier for each user project entry."
+        tests:
+          - unique
+          - not_null
+      - name: USER_ID
+        description: "ID of the user associated with the project."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_user')
+              field: USER_ID
+      - name: PROJECT_NAME
+        description: "Name of the project."
+        tests:
+          - not_null
+      - name: PROJECT_DESCRIPTION
+        description: "Description of the project."
+        tests:
+          - not_null
+
+  - name: stg_userSkill
+    columns:
+      - name: ID
+        description: "Unique identifier for each user skill entry."
+        tests:
+          - unique
+          - not_null
+      - name: SKILL_ID
+        description: "ID of the skill associated with the user."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_skills')
+              field: SKILL_ID
+      - name: USER_ID
+        description: "ID of the user associated with the skill."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_user')
+              field: USER_ID
+      - name: SKILL_LEVEL
+        description: "Level of proficiency or expertise in the skill."
+        tests:
+          - not_null

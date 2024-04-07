@@ -1,0 +1,18 @@
+WITH
+userCertificate_src AS (
+    SELECT * FROM {{ source('DB_SMS', 'TBL_USER_CERTIFICATE') }}
+),
+userCertificate AS (
+    SELECT 
+        CAST(ID AS INTEGER) AS ID,
+        CAST(CERTIFICATE_ID AS INTEGER) AS CERTIFICATE_ID,
+        CAST(USER_ID AS INTEGER) AS USER_ID,
+        CAST(VALID_FROM AS DATE) AS VALID_FROM,
+        CAST(VALID_TILL AS DATE) AS VALID_TILL,
+        CAST(STATUS AS VARCHAR) AS STATUS,
+        CAST(CREDENTIAL_ID AS VARCHAR) AS CREDENTIAL_ID
+    FROM 
+        userCertificate_src
+)
+
+SELECT * FROM userCertificate
