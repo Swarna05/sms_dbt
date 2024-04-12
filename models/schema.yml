@@ -159,3 +159,8 @@ models:
         description: "Level of proficiency or expertise in the skill."
         tests:
           - not_null
+      - name: STATUS
+        description: "Status of the Skills (e.g., Pending, Approved, Rejected)."
+        tests:
+          - not_null
+
